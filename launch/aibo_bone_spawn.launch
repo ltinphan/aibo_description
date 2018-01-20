@@ -1,0 +1,26 @@
+<launch>
+
+    <!-- Robot pose -->
+    <arg name="x" default="0"/>
+    <arg name="y" default="0.8"/>
+    <arg name="z" default="0.2"/>
+    <arg name="roll" default="0"/>
+    <arg name="pitch" default="0"/>
+    <arg name="yaw" default="0"/>
+    <arg name="urdf_robot_file" default="$(find aibo_description)/urdf/aibo_bone.urdf" />
+    <arg name="robot_name" default="aibo_bone" />
+
+ 
+    <include file="$(find spawn_robot_tools_pkg)/launch/spawn_robot_urdf_multiple.launch">
+        <arg name="x" value="$(arg x)" />
+        <arg name="y" value="$(arg y)" />
+        <arg name="z" value="$(arg z)" />
+        <arg name="roll" value="$(arg roll)"/>
+        <arg name="pitch" value="$(arg pitch)"/>
+        <arg name="yaw" value="$(arg yaw)" />
+        <arg name="urdf_robot_file" default="$(arg urdf_robot_file)" />
+        <arg name="robot_name" default="$(arg robot_name)" />
+    </include>
+
+
+</launch>

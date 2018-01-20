@@ -1,0 +1,39 @@
+<launch>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find aibo_description)/config/aibo_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/aibo_tc" args="headTilt_position_controller
+                                        headPan_position_controller
+                                        mouth_joint_position_controller
+                                        neck_joint_position_controller
+                                        legRF1_position_controller
+                                        legLF1_position_controller
+                                        legRF2_position_controller
+                                        legLF2_position_controller
+                                        legRF3_position_controller
+                                        legLF3_position_controller
+                                        legRB1_position_controller
+                                        legLB1_position_controller
+                                        legRB2_position_controller
+                                        legLB2_position_controller
+                                        legRB3_position_controller
+                                        legLB3_position_controller
+                                        tailPan_position_controller
+                                        tailTilt_position_controller
+                                        R_ear_tilt_position_controller
+                                        R_ear_joint_position_controller
+                                        L_ear_tilt_position_controller
+                                        L_ear_joint_position_controller
+                                        joint_state_controller
+                                        --shutdown-timeout 1"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/aibo_tc/joint_states" />
+  </node>
+
+</launch>

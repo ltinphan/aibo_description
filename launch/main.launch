@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>  
+  <include file="$(find aibo_description)/launch/aibo_tc_start_world.launch"/>
+  
+  <include file="$(find aibo_description)/launch/aibo_complete_v2.launch"/>
+  
+  <node name="init_aibo_position" pkg="aibo_description" type="init_aibo.py" output="screen"/>
+  
+  
+  <include file="$(find aibo_description)/launch/aibo_ball_spawn.launch">
+        <arg name="x" default="0"/>
+        <arg name="y" default="-1.0"/>
+        <arg name="z" default="0.2"/>
+  </include>
+  
+  <include file="$(find aibo_description)/launch/aibo_bone_spawn.launch">
+        <arg name="x" default="-4.0"/>
+        <arg name="y" default="4.0"/>
+        <arg name="z" default="0.2"/>
+  </include>
+  
+  
+  <include file="$(find person_sim)/launch/spawn_person.launch">
+        <arg name="sdf_robot_file" value="$(find person_sim)/models/oliveeye/model.sdf"/>
+        <arg name="robot_name" value="oliveeye" />
+        <arg name="x" value="2.0" />
+        <arg name="y" value="0.0" />
+        <arg name="z" value="0.0" />
+        <arg name="yaw" value="0.0" />
+    </include>
+    
+    <include file="$(find person_sim)/launch/spawn_person.launch">
+        <arg name="sdf_robot_file" value="$(find person_sim)/models/timmyeye/model.sdf"/>
+        <arg name="robot_name" value="timmyeye" />
+        <arg name="x" value="-6.0" />
+        <arg name="y" value="-6.0" />
+        <arg name="z" value="0.0" />
+        <arg name="yaw" value="0.0" />
+    </include>
+
+    <include file="$(find face_recognition_tc)/launch/make_person_movable.launch">
+        <arg name="robot_name" value="oliveeye" />
+    </include>
+    <include file="$(find face_recognition_tc)/launch/make_person_movable.launch">
+        <arg name="robot_name" value="timmyeye" />
+    </include>
+
+    <include file="$(find aibo_description)/launch/move_timmy_cicles.launch"/>
+
+
+</launch>

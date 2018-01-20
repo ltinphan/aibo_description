@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>  
+  <include file="$(find aibo_description)/launch/aibo_tc_start_world.launch"/>
+  
+  <include file="$(find aibo_description)/launch/aibo_ball_spawn.launch">
+        <arg name="x" default="0"/>
+        <arg name="y" default="0.8"/>
+        <arg name="z" default="0.2"/>
+  </include>
+  
+  <include file="$(find aibo_description)/launch/aibo_bone_spawn.launch">
+        <arg name="x" default="0.05"/>
+        <arg name="y" default="0.9"/>
+        <arg name="z" default="0.2"/>
+  </include>
+
+</launch>

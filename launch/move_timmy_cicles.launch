@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch> 
+    <arg name="robot_name" default="timmyeye" />
+    <node name="$(arg robot_name)_move_in_circles" pkg="spawn_robot_tools_pkg" type="move_object_in_circles.py" args="$(arg robot_name)" output="screen"/>
+</launch>

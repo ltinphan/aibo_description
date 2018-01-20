@@ -1,0 +1,7 @@
+<launch>
+
+  <include file="$(find aibo_description)/launch/aibo_tc_spawn.launch"/>
+  <include file="$(find aibo_description)/launch/aibo_tc_control.launch"/>
+  
+
+</launch>

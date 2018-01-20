@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <arg name="urdf_robot_file" default="$(find aibo_description)/urdf/aibo_tc_with_transmisions_real_model.urdf" />
+    <param name="robot_description" command="cat $(arg urdf_robot_file)" />
+
+    <group ns="aibo_tc">
+        <!-- Spawn Part -->
+        <arg name="x" default="0.0" />
+        <arg name="y" default="0.0" />
+        <arg name="z" default="0.2" />
+        <arg name="roll" default="0"/>
+        <arg name="pitch" default="0"/>
+        <arg name="yaw" default="1.57"/>
+        
+        <rosparam file="$(find aibo_description)/config/aibo_control.yaml" command="load" ns="/aibo_tc"/>
+        
+        
+        <include file="$(find aibo_description)/launch/aibo_tc_spawn.launch">
+            <arg name="x" value="$(arg x)" />
+            <arg name="y" value="$(arg y)" />
+            <arg name="z" value="$(arg z)" />
+            <arg name="roll" value="$(arg roll)"/>
+            <arg name="pitch" value="$(arg pitch)"/>
+            <arg name="yaw" value="$(arg yaw)" />
+        </include>
+        
+        
+        <node name="robot_state_publisher_aibo_tc" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+            <param name="publish_frequency" type="double" value="5.0" />
+        </node>
+        
+        <node name="aibo_tc_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="--namespace=/aibo_tc 
+                                /aibo_tc/joint_state_controller 
+                                /aibo_tc/headTilt_position_controller
+                                /aibo_tc/headPan_position_controller
+                                /aibo_tc/mouth_joint_position_controller
+                                /aibo_tc/neck_joint_position_controller
+                                /aibo_tc/legRF1_position_controller
+                                /aibo_tc/legLF1_position_controller
+                                /aibo_tc/legRF2_position_controller
+                                /aibo_tc/legLF2_position_controller
+                                /aibo_tc/legRF3_position_controller
+                                /aibo_tc/legLF3_position_controller
+                                /aibo_tc/legRB1_position_controller
+                                /aibo_tc/legLB1_position_controller
+                                /aibo_tc/legRB2_position_controller
+                                /aibo_tc/legLB2_position_controller
+                                /aibo_tc/legRB3_position_controller
+                                /aibo_tc/legLB3_position_controller
+                                /aibo_tc/tailPan_position_controller
+                                /aibo_tc/tailTilt_position_controller
+                                /aibo_tc/R_ear_tilt_position_controller
+                                /aibo_tc/R_ear_joint_position_controller
+                                /aibo_tc/L_ear_tilt_position_controller
+                                /aibo_tc/L_ear_joint_position_controller
+                              --shutdown-timeout 3">
+        </node>
+        
+        
+        
+    </group>
+
+
+    <include file="$(find aibo_description)/launch/aibo_fake_make_movable.launch"/>
+
+</launch>
+
